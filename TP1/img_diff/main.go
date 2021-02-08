@@ -7,21 +7,30 @@ import (
 	"log"
 )
 
-func printContent(path string) {
+const PATH1 = "dummies/image_1.jpg"
+const PATH2 = "dummies/image_2.jpg"
+const PATH3 = "dummies/image_3.jpg"
+
+func printContent(path string) int {
 	content, err := ioutil.ReadFile(path)
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	//fmt.Println(content)
-
 	h := sha256.New()
-
-	fmt.Println(h.Write(content))
+	write, err := h.Write(content)
+	return write
 }
 
 func main() {
-	printContent("dummies/image_1.jpg")
-	//printContent("dummies/image_2.jpg")
-	//printContent("dummies/image_3.jpg")
+	var val1 = printContent(PATH1)
+	var val2 = printContent(PATH2)
+	var val3 = printContent(PATH3)
+
+	if val1 != val2 && val1 != val3 {
+		fmt.Println(PATH1)
+	} else if val1 != val2 && val3 != val2 {
+		fmt.Println(PATH2)
+	} else {
+		fmt.Println(PATH3)
+	}
 }
