@@ -3,9 +3,25 @@ package main
 import (
 	"fmt"
 	"strconv"
+	"time"
 )
 
 type IPAddr [4]byte
+
+type MyError struct {
+	When time.Time
+	What string
+}
+
+type Error interface {
+}
+
+func run() MyError {
+	erreur := MyError{
+		When: time.Now(),
+		What: "une erreur"}
+	return erreur
+}
 
 func main() {
 	hosts := map[string]IPAddr{
