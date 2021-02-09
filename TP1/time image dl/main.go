@@ -17,14 +17,14 @@ func getImg(args []string) *string {
 		if err != nil {
 			log.Fatal(err)
 		}
-		t := time.Now()
-		elapsed := t.Sub(start)
-		fmt.Printf("%v\n", elapsed)
 		//var finalImg ,_ = ioutil.ReadAll(img.Body)
 		//fmt.Println(finalImg)
 		//fmt.Println(img)
 		//fmt.Println(listUrl)
 		defer img.Body.Close()
+		t := time.Now()
+		elapsed := t.Sub(start)
+		fmt.Printf("%v\n", elapsed)
 	}
 	fmt.Println(listUrl)
 	return nil
