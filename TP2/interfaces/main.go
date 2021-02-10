@@ -13,14 +13,29 @@ type MyError struct {
 	What string
 }
 
-type Error interface {
+func (err MyError) Error() string {
+	return fmt.Sprintf("Error at: %v this happened: %s", err.When, err.What)
 }
 
-func run() MyError {
-	erreur := MyError{
+func run() error {
+	return MyError{
 		When: time.Now(),
-		What: "une erreur"}
-	return erreur
+		What: "test",
+	}
+}
+
+type Inter interface {
+}
+
+func PrintIt(input interface{}) {
+	switch v := input.(type) {
+	case int:
+		fmt.Println("The type is int !")
+	case string:
+		fmt.Println("The type is string !")
+	default:
+		fmt.Printf("I don't know about type %T!\n", v)
+	}
 }
 
 func main() {
@@ -40,4 +55,14 @@ func main() {
 		}
 		fmt.Printf("print with (b) version : %v: %s\n", name, stringFormated)
 	}
+
+	PrintIt(int(1))
+
+	err := run()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println("no error")
+
 }
